@@ -154,7 +154,7 @@
             var order_distribute_chart = echarts.init(document.getElementById('order_distribute_chart'));
             $.ajax({
                 type :"post",
-                url : "http://local.haitunerp.com/open/chart",
+                url : "http://erp.haitungongyinglian.hk/open/chart",
                 dataType : "jsonp",
                 jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
                 async:false,
@@ -266,7 +266,6 @@
                                     }
                                     html+= value.marker +value.seriesName +':'+value.data+'<br>';
                                 })
-                                console.log(html);
                                 return html;
                             }
                         },
@@ -307,6 +306,16 @@
                         },
                         tooltip: {
                             trigger: 'axis',
+                            formatter: function (params) {
+                                var html = '';
+                                $.each(params,function (index,value) {
+                                    if(index==0){
+                                        html+=axis_label[value.dataIndex]+'<br>';
+                                    }
+                                    html+= value.marker +value.seriesName +':'+value.data+'<br>';
+                                })
+                                return html;
+                            }
                         },
                         legend: {
                             data:['今日','昨日']
