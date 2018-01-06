@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="../css/bootstrap-ht.css"/>
     <style>
         .container {
-            width: 1580px;
-            margin-top: 50px;
+            width: 1800px;
+            margin-top: 150px;
         }
         .flip-clock-wrapper ul {
             width: 10px;
@@ -50,7 +50,7 @@
             left: 0px;
         }
         .clock{
-            width: 58%;
+            width: 50%;
             margin: 0 auto;
             overflow: hidden;
         }
@@ -62,7 +62,10 @@
 <section id="main">
     <div class="">
         <div class="container">
-            <div class="text-right"><span id="current_date"></span><a id="refresh">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></a></div>
+            <div class="text-right"><span id="current_date"></span>
+                &nbsp;&nbsp;&nbsp;<a id="refresh"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></a>
+                &nbsp;&nbsp;&nbsp;<a id="full_screen" title="全屏"><span class="glyphicon glyphicon-send" aria-hidden="true"></span></a>
+            </div>
             <div class="row wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s" style="text-align: center">
                 <div class="col-md-4">
                     <div class="row wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s" style="text-align: center">
@@ -130,6 +133,7 @@
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
 <script>
+
     var get_now_format_date =function () {
         var date = new Date();
         var seperator1 = "-";
@@ -144,6 +148,30 @@
         }
         return year + seperator1 + month + seperator1 + strDate;
     }
+
+    // 判断各种浏览器，找到正确的方法
+    var launch_full_screen = function (element) {
+        if(element.requestFullscreen) {
+            element.requestFullscreen();
+        } else if(element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+        } else if(element.webkitRequestFullscreen) {
+            element.webkitRequestFullscreen();
+        } else if(element.msRequestFullscreen) {
+            element.msRequestFullscreen();
+        }
+    }
+
+   var exit_fulls_screen =function () {
+        if(document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if(document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if(document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        }
+    }
+
 
 
     var init_chart = function () {
@@ -206,7 +234,9 @@
             init_chart();
         })
 
-
+        $("#full_screen").on('click', function () {
+            launch_full_screen(document.documentElement); // 整个网页
+        })
     })
 
 </script>
