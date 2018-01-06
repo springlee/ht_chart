@@ -2,7 +2,7 @@
  * Created by springlee on 2018/1/4.
  */
 
-function get_order_distribute_chart_option(city_min_num,city_max_num,map_data) {
+function get_order_distribute_chart_option(city_min_num,city_max_num,map_data,symbol_size) {
     return {
         backgroundColor: '#fff',
         title: {
@@ -58,7 +58,7 @@ function get_order_distribute_chart_option(city_min_num,city_max_num,map_data) {
                 coordinateSystem: 'geo',
                 data: map_data,
                 symbolSize: function (val) {
-                    return val[2] / 15;
+                    return val[2]/symbol_size ;
                 },
                 label: {
                     normal: {

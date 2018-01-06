@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1 , user-scalable=no">
+    <title>海豚战报-web</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../css/flipclock.css"/>
+    <link rel="stylesheet" href="../css/animate.css"/>
+    <link rel="stylesheet" href="../css/bootstrap-ht.css"/>
+    <style>
+        .container {
+            width: 1580px;
+            margin-top: 50px;
+        }
+        .flip-clock-wrapper ul {
+            width: 10px;
+            height: 25px;
+            line-height: 22px;
+            margin: 1px;
+            overflow: hidden;
+        }
+
+        .flip-clock-wrapper ul li {
+            line-height: 25px;
+            overflow: hidden;
+        }
+        .flip-clock-divider {
+            width: 10px;
+            height: 30px;
+            overflow: hidden;
+        }
+
+        .flip-clock-wrapper ul li a div div.inn {
+            font-size: 20px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .flip-clock-dot.top {
+            top: 4px;
+        }
+
+        .flip-clock-dot.bottom {
+            bottom: 5px;
+        }
+
+        .flip-clock-dot {
+            left: 0px;
+        }
+        .clock{
+            width: 58%;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<!--home-->
+<section id="main">
+    <div class="">
+        <div class="container">
+            <div class="text-right"><span id="current_date"></span><a id="refresh">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></a></div>
+            <div class="row wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s" style="text-align: center">
+                <div class="col-md-4">
+                    <div class="row wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s" style="text-align: center">
+                        <div class="col-md-12">
+                            <div class="clock wow jello " data-wow-duration="1s" data-wow-delay="2s"></div>
+                            <h3>今日成交订单数: <span id="today_order_total_num">0</span></h3>
+                            <h3>今日成交额: ¥ <span id="today_order_total_price">0.00</span></h3>
+                        </div>
+                    </div>
+                    <div class="row wow bounceIn" data-wow-duration="1s" data-wow-delay="1.5s" style="text-align: center">
+                        <div class="col-md-12">
+                            <div id="category_chart" style="width: 100%;height: 400px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row wow fadeInDownBig" data-wow-duration="1s" data-wow-delay="1.5s" style="text-align: center">
+                        <div class="col-md-12">
+                            <div id="order_distribute_chart" style="width: 100%;height:500px;"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="row wow fadeInRight" data-wow-duration="1s" data-wow-delay="1.5s" style="text-align: center">
+                        <div class="col-md-12">
+                            <div id="pv_chart_1" style="width: 100%;height: 300px;"></div>
+                        </div>
+                    </div>
+                    <div class="row wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.5s" style="text-align: center">
+                        <div class="col-md-12">
+                            <div id="pv_chart_2" style="width: 100%;height: 300px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--home-->
+
+<!--footer-->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    Copyright&nbsp;©&nbsp;2018&nbsp;&nbsp;海豚跨境科技（香港）有限公司&nbsp;&nbsp;
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!--footer-->
+</body>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/wow.min.js"></script>
+<script src="../js/accounting.min.js"></script>
+<script src="../js/flipclock.min.js"></script>
+<script src="../js/jquery.countup.js"></script>
+<script src="../js/chart_option.js"></script>
+<script src="../js/echarts.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+<script>
+    var get_now_format_date =function () {
+        var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        return year + seperator1 + month + seperator1 + strDate;
+    }
+
+
+    var init_chart = function () {
+        //初始化e_chart
+        var pv_chart_1 = echarts.init(document.getElementById('pv_chart_1'));
+        var pv_chart_2 = echarts.init(document.getElementById('pv_chart_2'));
+        var category_chart = echarts.init(document.getElementById('category_chart'));
+        var order_distribute_chart = echarts.init(document.getElementById('order_distribute_chart'));
+        $.ajax({
+            type: "post",
+            url: "http://erp.haitungongyinglian.hk/open/chart",
+            dataType: "jsonp",
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            async: false,
+            success: function (json) {
+                var chart_data = json;
+                //初始化数量
+                var today_order_total_price = accounting.formatMoney(chart_data.order_total, '');
+                var today_order_total_num = chart_data.order_num;
+                $("#today_order_total_price").html(today_order_total_price);
+                $("#today_order_total_num").html(today_order_total_num);
+                $("#today_order_total_price,#today_order_total_num").countUp({
+                    delay: 5,
+                    time: 2000
+                });
+                //地图 区域分布
+                var order_distribute_chart_option =get_order_distribute_chart_option(chart_data.city_min_num,chart_data.city_max_num,chart_data.map_data,chart_data.symbol_size);
+                order_distribute_chart.setOption(order_distribute_chart_option);
+                //折线(pv uv)
+                var axis_label = chart_data.baidu_tj.xAxis_name;
+                var option_pv = get_tj_chart_option('网站PV', axis_label, chart_data.baidu_tj.xAxis_key, chart_data.baidu_tj.today_info.pv, chart_data.baidu_tj.yesterday_info.pv);
+                pv_chart_1.setOption(option_pv);
+                var option_uv = get_tj_chart_option('网站UV', axis_label, chart_data.baidu_tj.xAxis_key, chart_data.baidu_tj.today_info.uv, chart_data.baidu_tj.yesterday_info.uv);
+                pv_chart_2.setOption(option_uv);
+
+                //类目
+                var category_chart_option = get_category_chart_option(chart_data.category);
+                category_chart.setOption(category_chart_option);
+            },
+            error: function () {
+                alert('接口异常');
+            }
+        });
+    }
+
+    self.setInterval("init_chart()", 60000);
+
+    $(function () {
+        new WOW().init();
+        //初始化时间
+        var date = new Date();
+        var clock = $('.clock').FlipClock(date, {
+            clockFace: 'TwentyFourHourClock'
+        });
+        $(window).on('load', function () {
+            init_chart();
+            $("#current_date").text(get_now_format_date())
+        })
+        $("#refresh").on('click', function () {
+            init_chart();
+        })
+
+
+    })
+
+</script>
+</html>

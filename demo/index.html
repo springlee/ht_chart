@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1 , user-scalable=no">
-    <title>海豚战报</title>
+    <title>海豚战报-wap</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/flipclock.css"/>
     <link rel="stylesheet" href="../css/animate.css"/>
@@ -113,8 +113,6 @@
     </div>
 </footer>
 <!--footer-->
-
-
 </body>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
@@ -122,10 +120,8 @@
 <script src="../js/wow.min.js"></script>
 <script src="../js/accounting.min.js"></script>
 <script src="../js/flipclock.min.js"></script>
-<script src="../js/jquery.countup.min.js"></script>
-<script src="../js/jquery.waypoints.min.js"></script>
+<script src="../js/jquery.countup.js"></script>
 <script src="../js/chart_option.js"></script>
-
 <script src="../js/echarts.min.js"></script>
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
@@ -156,7 +152,7 @@
                 });
 
                 //地图 区域分布
-                var order_distribute_chart_option =get_order_distribute_chart_option(chart_data.city_min_num,chart_data.city_max_num,chart_data.map_data);
+                var order_distribute_chart_option =get_order_distribute_chart_option(chart_data.city_min_num,chart_data.city_max_num,chart_data.map_data,chart_data.symbol_size);
                 order_distribute_chart.setOption(order_distribute_chart_option);
 
                 //折线(pv uv)
