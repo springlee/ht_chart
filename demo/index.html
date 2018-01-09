@@ -31,6 +31,7 @@
                 <li><a href="#order_distribute">订单分布</a></li>
                 <li><a href="#pv">访问量</a></li>
                 <li><a href="#category">类目</a></li>
+                <li><a href="#sort">排名</a></li>
                 <li><a id="refresh"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></a></li>
             </ul>
         </div>
@@ -74,6 +75,13 @@
 <!--pv-->
 <section id="pv">
     <div class="container">
+        <div class="row wow fadeInRight" data-wow-duration="1s" data-wow-delay="1.5s"
+             style="text-align: center">
+            <div class="col-md-12 text-left tj_header">
+                海豚官网 &nbsp;&nbsp;&nbsp;今日PV:<span id="today_pv" class="num_tips"></span>&nbsp;&nbsp;&nbsp;今日UV:<span
+                    id="today_uv" class="num_tips"></span>
+            </div>
+        </div>
         <div class="row wow fadeInUp" data-wow-duration="0.5s">
             <div class="col-md-6 wow fadeInLeft">
                 <div id="pv_chart_1"  style="width: 100%;height: 300px;"></div>
@@ -100,6 +108,25 @@
 </section>
 <!--category-->
 
+
+<!--sort-->
+<section id="sort">
+    <div class="container">
+        <div class="row wow fadeInUp" data-wow-duration="0.5s">
+            <div class="col-md-6 wow fadeInLeft">
+                <h3>单品销量排名(TOP10)</h3>
+                <ul id="sku_num_top10">
+                </ul>
+            </div>
+            <div class="col-md-6 wow fadeInRight">
+                <h3>单品销售额排名(TOP10)</h3>
+                <ul id="sku_total_top10">
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!--sort-->
 <!--footer-->
 <footer>
     <div class="container">
@@ -150,7 +177,10 @@
                     delay: 5,
                     time: 2000
                 });
-
+                $("#today_pv").html(chart_data.baidu_tj.today_pv);
+                $("#today_uv").html(chart_data.baidu_tj.today_uv);
+                //top10
+                render_top10(chart_data.sku_num_top10,chart_data.sku_total_top10);
                 //地图 区域分布
                 var order_distribute_chart_option =get_order_distribute_chart_option(chart_data.city_min_num,chart_data.city_max_num,chart_data.map_data);
                 order_distribute_chart.setOption(order_distribute_chart_option);

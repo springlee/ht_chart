@@ -12,7 +12,7 @@ function get_order_distribute_chart_option(city_min_num,city_max_num,map_data) {
             left: 'center',
             textStyle: {
                 color: '#404a59',
-                fontSize:'30'
+                fontSize:'18'
             }
         },
         tooltip: {
@@ -90,9 +90,19 @@ function get_category_chart_option(category) {
                 }
             }
         },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
         tooltip: {},
         xAxis: {
-            data: category.name
+            data: category.name,
+            axisTick: {
+                alignWithLabel: true
+            }
+
         },
         yAxis: {},
         series: [{
@@ -101,9 +111,11 @@ function get_category_chart_option(category) {
             data: category.order_total,
             itemStyle: {
                 normal: {
-                    color: '#404a59'
+                    color: '#404a59',
                 }
-            }
+            },
+            barWidth: 40,
+            barGap: '-100%', // Make series be overlap
         }]
     };
 }
@@ -156,5 +168,18 @@ function get_tj_chart_option(title ,axis_label,xAxis_key,today_info_value,yester
             }
         ]
     }
-    
+}
+
+ function render_top10 (sku_num_top10 ,sku_total_top10) {
+    $("#sku_num_top10 ,#sku_total_top10").empty();
+    var sku_num_top10_html  = '';
+    var sku_total_top10_html = '';
+    $.each(sku_num_top10 ,function (index,val) {
+        sku_num_top10_html +='<li>NO:'+(index+1)+'&nbsp;&nbsp;&nbsp;'+val['name']+'<span class="num_tips">('+val['num']+')</span></li>'
+    })
+    $.each(sku_total_top10 ,function (index,val) {
+        sku_total_top10_html +='<li>NO:'+(index+1)+'&nbsp;&nbsp;&nbsp;'+val['name']+'<span class="num_tips">('+val['order_total']+'元)</span></li>'
+    })
+    $("#sku_num_top10").html(sku_num_top10_html);
+    $("#sku_total_top10").html(sku_total_top10_html);
 }

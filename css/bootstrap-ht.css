@@ -73,6 +73,27 @@ body{
 #order_distribute, #pv,#category{
     margin-top: 100px;
 }
+.tj_header{
+    font-size: 18px;
+    color: #404a59;
+    margin: 10px 0 10px 4px;
+}
+.num_tips{
+    color: #d94e5d;
+}
+#single_product h3{
+    font-size: 18px;
+
+    margin-left: 12px;
+}
+
+#single_product ul li{
+    font-size: 12px;
+    list-style: none;
+    border-bottom: 1px solid #ddd;
+    margin: 0 0 3px -20px ;
+    width: 98%;
+}
 
 /*footer*/
 footer{

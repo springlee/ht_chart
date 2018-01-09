@@ -1,0 +1,51 @@
+#main .container {
+    width: 1800px;
+    margin-top: 100px;
+}
+
+.flip-clock-wrapper ul {
+    width: 10px;
+    height: 25px;
+    line-height: 22px;
+    margin: 1px;
+    overflow: hidden;
+}
+
+.flip-clock-wrapper ul li {
+    line-height: 25px;
+    overflow: hidden;
+}
+
+.flip-clock-divider {
+    width: 10px;
+    height: 30px;
+    overflow: hidden;
+}
+
+.flip-clock-wrapper ul li a div div.inn {
+    font-size: 20px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.flip-clock-dot.top {
+    top: 4px;
+}
+
+.flip-clock-dot.bottom {
+    bottom: 5px;
+}
+
+.flip-clock-dot {
+    left: 0px;
+}
+.clock {
+    width: 50%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+footer {
+    font-weight: 400;
+    text-align: center;
+    padding: 0;
+}
