@@ -154,6 +154,10 @@
         var pv_chart_2 = echarts.init(document.getElementById('pv_chart_2'));
         var category_chart = echarts.init(document.getElementById('category_chart'));
         var order_distribute_chart = echarts.init(document.getElementById('order_distribute_chart'));
+        pv_chart_1.showLoading();
+        pv_chart_2.showLoading();
+        category_chart.showLoading();
+        order_distribute_chart.showLoading();
         $.ajax({
             type: "post",
             url: "http://erp.haitungongyinglian.hk/open/chart",
@@ -161,6 +165,10 @@
             jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
             async: false,
             success: function (json) {
+                pv_chart_1.hideLoading();
+                pv_chart_2.hideLoading();
+                category_chart.hideLoading();
+                order_distribute_chart.hideLoading();
                 var chart_data = json;
                 //初始化数量
                 var today_order_total_price = accounting.formatMoney(chart_data.order_total, '');
