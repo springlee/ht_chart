@@ -154,64 +154,7 @@
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
 <script>
-    var init_chart = function () {
-        //初始化e_chart
-        var pv_chart_1 = echarts.init(document.getElementById('pv_chart_1'));
-        var pv_chart_2 = echarts.init(document.getElementById('pv_chart_2'));
-        var category_chart = echarts.init(document.getElementById('category_chart'));
-        var order_distribute_chart = echarts.init(document.getElementById('order_distribute_chart'));
-        pv_chart_1.showLoading();
-        pv_chart_2.showLoading();
-        category_chart.showLoading();
-        order_distribute_chart.showLoading();
-        $.ajax({
-            type :"post",
-            url : "http://erp.haitungongyinglian.hk/open/chart",
-            dataType : "jsonp",
-            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
-            async:false,
-            success : function(json){
-                pv_chart_1.hideLoading();
-                pv_chart_2.hideLoading();
-                category_chart.hideLoading();
-                order_distribute_chart.hideLoading();
-                var chart_data = json;
-                //初始化数量
-                var today_order_total_price = accounting.formatMoney(chart_data.order_total,'');
-                var today_order_total_num = chart_data.order_num;
-                $("#today_order_total_price").html(today_order_total_price);
-                $("#today_order_total_num").html(today_order_total_num);
-                $("#today_order_total_price,#today_order_total_num").countUp({
-                    delay: 5,
-                    time: 500
-                });
-                $("#today_pv").html(chart_data.baidu_tj.today_pv);
-                $("#today_uv").html(chart_data.baidu_tj.today_uv);
-                //top10
-                render_top10(chart_data.sku_num_top10,chart_data.sku_total_top10);
-                //地图 区域分布
-                var order_distribute_chart_option =get_order_distribute_chart_option(chart_data.city_min_num,chart_data.city_max_num,chart_data.map_data);
-                order_distribute_chart.setOption(order_distribute_chart_option);
-
-                //折线(pv uv)
-                var axis_label = chart_data.baidu_tj.xAxis_name;
-                var option_pv = get_tj_chart_option('网站PV',axis_label,chart_data.baidu_tj.xAxis_key,chart_data.baidu_tj.today_info.pv,chart_data.baidu_tj.yesterday_info.pv);
-                pv_chart_1.setOption(option_pv);
-                var option_uv = get_tj_chart_option('网站UV',axis_label,chart_data.baidu_tj.xAxis_key,chart_data.baidu_tj.today_info.uv,chart_data.baidu_tj.yesterday_info.uv);
-                pv_chart_2.setOption(option_uv);
-
-                //类目
-                var category_chart_option = get_category_chart_option(chart_data.category);
-                category_chart.setOption(category_chart_option);
-            },
-            error:function(){
-                alert('接口异常');
-            }
-        });
-    }
-
     self.setInterval("init_chart()",60000);
-
     $(function(){
         /*导航跳转效果插件*/
         $('.nav').singlePageNav({
@@ -225,10 +168,9 @@
 
         //初始化时间
         var date = new Date();
-        var clock = $('.clock').FlipClock(date, {
+        $('.clock').FlipClock(date, {
             clockFace: 'TwentyFourHourClock'
         });
-
         $(window).on('load',function () {
             init_chart();
         })
@@ -236,6 +178,5 @@
             init_chart();
         })
     })
-
 </script>
 </html>
