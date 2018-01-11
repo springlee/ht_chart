@@ -4,7 +4,7 @@ body{
 }
 
 #main .container {
-    width: 1800px;
+    width: 100%;
     padding-top: 100px;
     padding-bottom: 108px;
 }
