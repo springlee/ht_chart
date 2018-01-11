@@ -4,149 +4,93 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1 , user-scalable=no">
-    <title>海豚战报-wap</title>
+    <title>海豚战报-web</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="../css/flipclock.css"/>
     <link rel="stylesheet" href="../css/animate.css"/>
-    <link rel="stylesheet" href="../css/bootstrap-ht.css"/>
+    <link rel="stylesheet" href="../css/bootstrap-ht-full.css"/>
 </head>
 <body>
-<!--导航-->
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <!--小屏幕导航按钮和logo-->
-        <div class="navbar-header">
-            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="index.html" class="navbar-brand " id="logo"></a>
-        </div>
-        <!--小屏幕导航按钮和logo-->
-        <!--导航-->
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#home">首页</a></li>
-                <li><a href="#order_distribute">订单分布</a></li>
-                <li><a href="#pv">访问量</a></li>
-                <li><a href="#category">类目</a></li>
-                <li><a href="#sort">排名</a></li>
-                <li><a id="refresh"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></a></li>
-            </ul>
-        </div>
-        <!--导航-->
-    </div>
-</nav>
-<!--导航-->
 
 <!--home-->
-<section id="home">
-    <div class="lvjing">
-        <div class="container">
-            <div class="row wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s" style="text-align: center">
-                <div class="col-md-1"></div>
-                <div class="col-md-10">
-                    <div class="clock wow jello "   data-wow-duration="1s" data-wow-delay="2s" ></div>
-                    <h1>今日成交订单数: <span id="today_order_total_num">0</span></h1>
-                    <h1>今日成交额: ¥ <span id="today_order_total_price">0.00</span></h1>
+<section id="main">
+    <div class="container">
+        <div class="text-right">
+            &nbsp;&nbsp;&nbsp;<a id="refresh"><span class="glyphicon glyphicon-refresh"
+                                                    aria-hidden="true"></span></a>
+            &nbsp;&nbsp;&nbsp;<a id="full_screen" title="全屏"><span class="glyphicon glyphicon-send" aria-hidden="true"></span></a>
+        </div>
+        <div class="row wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s" style="text-align: center">
+            <div class="col-md-4">
+                <div class="row wow bounceIn" data-wow-duration="1s" data-wow-delay="1.5s"
+                     style="text-align: center">
+                    <div class="col-md-12">
+                        <div id="category_chart" style="width: 100%;height: 300px;" class="content-box"></div>
+                    </div>
                 </div>
-                <div class="col-md-1"></div>
+                <div id="single_product">
+                    <div id ='sku_num_top10_box' class="row text-left wow fadeInLeft content-box" data-wow-duration="1s" data-wow-delay="2s" >
+                        <h3>单品销量排名(TOP10)</h3>
+                        <ul id="sku_num_top10">
+                        </ul>
+                    </div>
+                    <div id ='sku_total_top10_box' class="row text-left wow fadeInLeft content-box" data-wow-duration="1s" data-wow-delay="2s" >
+                        <h3>单品销售额排名(TOP10)</h3>
+                        <ul id="sku_total_top10">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s" style="text-align: center">
+                    <div class="col-md-12 content-box" id="clock_box">
+                        <span id="current_date"></span>
+                    </div>
+                </div>
+                <div class="row wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s" style="text-align: center">
+                    <div class="col-md-12 content-box" id="total_box">
+                        <p>今日成交额:</p>
+                        <span class="total_price">¥<span id="today_order_total_price">0.00</span></span>
+                        <p>今日成交订单数:</p>
+                        <span id="today_order_total_num">0</span>
+                    </div>
+                </div>
+                <div class="row wow fadeInDownBig" data-wow-duration="1s" data-wow-delay="1.5s"
+                     style="text-align: center">
+                    <div class="col-md-12">
+                        <div id="order_distribute_chart" style="width: 100%;height:520px; margin-top: 20px; " class="content-box"> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row wow fadeInRight" data-wow-duration="1s" data-wow-delay="1.5s"
+                     style="text-align: center">
+                    <div class="col-md-12 text-left tj_header content-box">
+                        <span class="tj_header_title">海豚官网</span> 今日PV:<span id="today_pv" class="num_tips"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;今日UV:<span
+                            id="today_uv" class="num_tips"></span>
+                    </div>
+                </div>
+                <div class="row wow fadeInRight" data-wow-duration="1s" data-wow-delay="1.5s"
+                     style="text-align: center">
+                    <div class="col-md-12">
+                        <div id="pv_chart_1" style="width: 100%;height: 350px; " class="content-box"></div>
+                    </div>
+                </div>
+                <div class="row wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.5s"
+                     style="text-align: center; margin-top: 10px;">
+                    <div class="col-md-12">
+                        <div id="pv_chart_2" style="width: 100%;height: 350px;" class="content-box"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 <!--home-->
-
-<!--order_distribute-->
-<section id="order_distribute">
-    <div class="container">
-        <div class="row wow fadeInUp" data-wow-duration="0.5s">
-            <div class="col-md-1"></div>
-            <div class="col-md-10">
-                <div id="order_distribute_chart"  style="width: 100%;height:500px;"></div>
-            </div>
-            <div class="col-md-1"></div>
-        </div>
-    </div>
-</section>
-<!--order_distribute-->
-
-<!--pv-->
-<section id="pv">
-    <div class="container">
-        <div class="row wow fadeInRight" data-wow-duration="1s" data-wow-delay="1.5s"
-             style="text-align: center">
-            <div class="col-md-12 text-left tj_header">
-                海豚官网 &nbsp;&nbsp;&nbsp;今日PV:<span id="today_pv" class="num_tips"></span>&nbsp;&nbsp;&nbsp;今日UV:<span
-                    id="today_uv" class="num_tips"></span>
-            </div>
-        </div>
-        <div class="row wow fadeInUp" data-wow-duration="0.5s">
-            <div class="col-md-6 wow fadeInLeft">
-                <div id="pv_chart_1"  style="width: 100%;height: 300px;"></div>
-            </div>
-            <div class="col-md-6 wow fadeInRight">
-                <div id="pv_chart_2"  style="width: 100%;height: 300px;"></div>
-            </div>
-        </div>
-    </div>
-</section>
-<!--pv-->
-
-<!--category-->
-<section id="category">
-    <div class="container">
-        <div class="row wow fadeInUp" data-wow-duration="0.5s">
-            <div class="col-md-2"></div>
-            <div class="col-md-8 wow bounceIn">
-                <div id="category_chart"  style="width: 100%;height: 400px;"></div>
-            </div>
-            <div class="col-md-2"></div>
-        </div>
-    </div>
-</section>
-<!--category-->
-
-
-<!--sort-->
-<section id="sort">
-    <div class="container">
-        <div class="row wow fadeInUp" data-wow-duration="0.5s">
-            <div class="col-md-6 wow fadeInLeft">
-                <h3>单品销量排名(TOP10)</h3>
-                <ul id="sku_num_top10">
-                </ul>
-            </div>
-            <div class="col-md-6 wow fadeInRight">
-                <h3>单品销售额排名(TOP10)</h3>
-                <ul id="sku_total_top10">
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-<!--sort-->
-<!--footer-->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p>
-                    Copyright&nbsp;©&nbsp;2018&nbsp;&nbsp;海豚跨境科技（香港）有限公司&nbsp;&nbsp;
-                </p>
-            </div>
-        </div>
-    </div>
-</footer>
-<!--footer-->
 </body>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery.singlePageNav.min.js"></script>
 <script src="../js/wow.min.js"></script>
 <script src="../js/accounting.min.js"></script>
-<script src="../js/flipclock.min.js"></script>
 <script src="../js/jquery.countup.js"></script>
 <script src="../js/chart_option.js"></script>
 <script src="../js/echarts.min.js"></script>
@@ -154,28 +98,20 @@
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
 <script>
-    self.setInterval("init_chart()",60000);
-    $(function(){
-        /*导航跳转效果插件*/
-        $('.nav').singlePageNav({
-            offset:70
-        });
-        /*小屏幕导航点击关闭菜单*/
-        $('.navbar-collapse a').click(function(){
-            $('.navbar-collapse').collapse('hide');
-        });
-        new WOW().init();
+    self.setInterval("init_chart()", 60000);
+    self.setInterval("get_now_format_date()", 1000);
 
+    $(function () {
+        new WOW().init();
         //初始化时间
-        var date = new Date();
-        $('.clock').FlipClock(date, {
-            clockFace: 'TwentyFourHourClock'
-        });
-        $(window).on('load',function () {
+        $(window).on('load', function () {
             init_chart();
         })
-        $("#refresh").on('click',function () {
+        $("#refresh").on('click', function () {
             init_chart();
+        })
+        $("#full_screen").on('click', function () {
+            launch_full_screen(document.documentElement); // 整个网页
         })
     })
 </script>

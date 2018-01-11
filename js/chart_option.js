@@ -5,14 +5,14 @@ var url ='http://erp.haitungongyinglian.hk/open/chart';
 
 function get_order_distribute_chart_option() {
     return {
-        backgroundColor: '#fff',
+        backgroundColor: '#020422',
         title: {
             text: '订单区域分布图',
             subtext: '海豚供应链(单位:件)',
             sublink: 'http://www.haitun.hk',
             left: 'center',
             textStyle: {
-                color: '#404a59',
+                color: '#0899d5',
                 fontSize:'18'
             }
         },
@@ -27,28 +27,29 @@ function get_order_distribute_chart_option() {
             max: 0,
             calculable: true,
             inRange: {
-                color: ['#50a3ba', '#eac736', '#d94e5d']
+                color: ['#50a3ba', '#eac736']
             },
             textStyle: {
-                color: '#404a59'
+                color: '#1c4a83'
             }
         },
         geo: {
             map: 'china',
             label: {
                 emphasis: {
-                    show: true
+                    show: true,
+                    color:'#f5b130'
                 }
             },
             itemStyle: {
                 //区块颜色
                 normal: {
-                    areaColor: '#323c48',
+                    areaColor: '#1c4a83',
                     borderColor: '#111'
                 },
                 //鼠标悬浮去区块地图的颜色
                 emphasis: {
-                    areaColor: '#2a333d'
+                    areaColor: '#0899d5',
                 }
             },
             zoom:1.25
@@ -80,12 +81,15 @@ function get_order_distribute_chart_option() {
 
 function get_category_chart_option() {
     return  {
+        backgroundColor: '#020422',
+        textStyle:{
+            color:'#a0b5dd',
+        },
         title: {
-            text: '类目(单位:元)',
-            itemStyle: {
-                normal: {
-                    color: '#404a59'
-                }
+            text: '类目日销售额(单位: 元)',
+            textStyle: {
+                color: '#0899d5',
+                fontSize:'18',
             }
         },
         grid: {
@@ -98,36 +102,99 @@ function get_category_chart_option() {
         xAxis: {
             data:[],
             axisTick: {
-                alignWithLabel: true
+                show:false
+            },
+            splitLine:{
+                show:false
+            },
+            axisLine:{
+                lineStyle:{
+                    color: "#082860"
+                }
+            }
+        },
+        yAxis: {
+            axisTick: {
+                alignWithLabel:true,
+                inside:true,
+                show:true,
+                lineStyle:{
+                    color: "#082860"
+                }
+            },
+            splitLine:{
+                show:false
+            },
+            axisLine:{
+                lineStyle:{
+                    color: "#082860"
+                }
             }
 
         },
-        yAxis: {},
         series: [{
-            name: '销量',
             type: 'bar',
             data: [],
             itemStyle: {
                 normal: {
-                    color: '#404a59',
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: '#0a39a1'
+                    }, {
+                        offset: 1,
+                        color: '#1873c2'
+
+                    }]),
+                    label: {
+                        show: true,//是否展示
+                        position:'top',
+                        textStyle: {
+                            fontSize : '12'
+                        }
+                    },
+                    shadowColor: 'rgba(0, 0, 0, 0.4)',
                 }
             },
-            barWidth: 40,
-            barGap: '-100%', // Make series be overlap
+            barWidth: 40
         }]
     };
 }
 
 function get_tj_chart_option() {
     return {
+        color:['#8260d8','#25a7dd'],
+        backgroundColor: '#020422',
+        textStyle:{
+            color:'#a0b5dd',
+        },
         title: {
-            text: ''
+            text: '',
+            textStyle: {
+                color: '#0899d5',
+                fontSize:'18',
+            }
         },
         tooltip: {
             trigger: 'axis',
         },
         legend: {
-            data:['今日','昨日']
+            data:[{
+                name:'今日',
+                icon:'rect',
+                textStyle:{
+                    color:'#0899de'
+                }
+
+            },{
+                name:'昨日',
+                icon:'rect',
+                textStyle:{
+                    color:'#0899de'
+                }
+
+            }],
+            right:0,
+            align:'right'
         },
         grid: {
             left: '3%',
@@ -138,21 +205,63 @@ function get_tj_chart_option() {
         xAxis: {
             type: 'category',
             boundaryGap: false,
-            data:[]
+            data:[],
+            splitLine:{
+                show:false
+            },
+            axisTick: {
+                show:false
+            },
+            axisLine:{
+                lineStyle:{
+                    color: "#082860"
+                }
+            }
         },
         yAxis: {
+            axisTick: {
+                alignWithLabel:true,
+                inside:true,
+                show:true,
+                lineStyle:{
+                    color: "#082860"
+                }
+            },
+
+            splitLine:{
+                show:false
+            },
+            axisLine:{
+                lineStyle:{
+                    color: "#082860"
+                }
+            },
             type: 'value'
         },
         series: [
             {
                 name:'今日',
                 type:'line',
-                data:[]
+                data:[],
+                itemStyle: {
+                    normal : {
+                        lineStyle:{
+                            color:'#8260d8'
+                        }
+                    }
+                },
             },
             {
                 name: '昨日',
                 type: 'line',
-                data: []
+                data: [],
+                itemStyle: {
+                    normal : {
+                        lineStyle:{
+                            color:'#0899d5'
+                        }
+                    }
+                },
             }
         ]
     }
@@ -162,10 +271,10 @@ function get_tj_chart_option() {
     var sku_num_top10_html  = '';
     var sku_total_top10_html = '';
     $.each(sku_num_top10 ,function (index,val) {
-        sku_num_top10_html +='<li>NO:'+(index+1)+'&nbsp;&nbsp;&nbsp;'+val['name']+'<span class="num_tips">('+val['num']+')</span></li>'
+        sku_num_top10_html +='<li>NO:'+(index+1)+'&nbsp;&nbsp;&nbsp;'+val['name']+'<span class="pull-right">'+val['num']+'件</span></li>'
     });
     $.each(sku_total_top10 ,function (index,val) {
-        sku_total_top10_html +='<li>NO:'+(index+1)+'&nbsp;&nbsp;&nbsp;'+val['name']+'<span class="num_tips">('+val['order_total']+'元)</span></li>'
+        sku_total_top10_html +='<li>NO:'+(index+1)+'&nbsp;&nbsp;&nbsp;'+val['name']+'<span class="pull-right">'+val['order_total']+'元</span></li>'
     });
     $("#sku_num_top10").html(sku_num_top10_html);
     $("#sku_total_top10").html(sku_total_top10_html);
@@ -183,7 +292,9 @@ function get_now_format_date () {
     if (strDate >= 0 && strDate <= 9) {
         strDate = "0" + strDate;
     }
-    return year + sep + month + sep + strDate;
+    var time =date.toLocaleTimeString('en-US');
+    var date_time = year + sep + month + sep + strDate  + " " + time;
+    $("#current_date").text(date_time);
 }
 
 // 判断各种浏览器，找到正确的方法
@@ -220,7 +331,7 @@ function init_chart() {
     pv_chart_2.showLoading();
     category_chart.showLoading();
     order_distribute_chart.showLoading();
-    $("#current_date").text(get_now_format_date());
+    get_now_format_date();
     $.ajax({
         type: "post",
         url: url,

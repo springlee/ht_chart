@@ -1,12 +1,18 @@
-
 body{
+    font-family: 'Microsoft YaHei', sans-serif;
+    background: url(../images/bg.png) repeat-y;
 }
 
 #main .container {
     width: 1800px;
-    margin-top: 100px;
+    padding-top: 100px;
+    padding-bottom: 108px;
 }
-
+.content-box{
+    border-radius: 6px;
+    padding: 12px;
+    border: 1px #0d8dc5 solid;
+}
 .flip-clock-wrapper ul {
     width: 10px;
     height: 25px;
@@ -47,6 +53,79 @@ body{
     width: 50%;
     margin: 0 auto;
     overflow: hidden;
+}
+
+#sku_num_top10_box,#sku_total_top10_box{
+    margin-top: 12px;
+    width: 102%;
+    background-color:#020422;
+    padding-right:4px ;
+}
+.tj_header{
+    margin-left: 15px;
+    margin-bottom: 10px;
+    background-color:#020422;
+    color: #0d8dc5;
+    width: 95%;
+    height: 130px;
+    line-height:110px
+}
+.tj_header_title{
+    font-size: 25px;
+    margin-right: 20px;
+}
+
+#total_box{
+    padding-top: 10px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    background-color:#020422;
+    color: #0d8dc5;
+    width: 95%;
+    height: 210px;
+}
+#total_box p {
+    margin: 0;
+}
+
+#clock_box{
+    margin: 0 0 10px 16%;
+    background-color:#020422;
+    font-size: 20px;
+    color: #0d8dc5;
+    width: 70%;
+    height: 50px;
+}
+
+#single_product{
+    padding-left:14px ;
+}
+
+#single_product h3{
+    font-size: 18px;
+    margin-left: 3px;
+    color: #0d8dc5;
+    margin-top: 2px;
+}
+
+#single_product ul li{
+    font-size: 12px;
+    list-style: none;
+    margin: 0 0 3px -37px ;
+    color: #a0b5dd;
+    width: 100%;
+}
+.row{
+    margin-right: -11px;
+}
+.total_price{
+    font-size:50px;
+    color: #ffffff;
+}
+#today_order_total_num{
+    font-size:30px;
+    color: #ffffff;
 }
 footer {
     font-weight: 400;
